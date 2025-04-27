@@ -1,8 +1,9 @@
-# 💡 Projeto IoT com MQTT e Raspberry Pi — Controle de LED
+💡 Projeto IoT com MQTT e Raspberry Pi — Controle de LED
 
 ## 1. 📌 Introdução
 
 ### Visão Geral
+
 Este projeto de Internet das Coisas (IoT) demonstra a comunicação entre dois dispositivos utilizando o protocolo MQTT, com o objetivo de **acender ou apagar um LED remotamente**.
 
 - Um dispositivo atua como **publisher**, enviando comandos MQTT (`ON` ou `OFF`).
@@ -15,19 +16,23 @@ Este projeto de Internet das Coisas (IoT) demonstra a comunicação entre dois d
 
 ### Diagrama de Arquitetura
 
-```plaintext
+```
 +-------------------+       MQTT        +------------------+       MQTT       +-----------------+
 | Dispositivo Pub   |  ---> Publish  -->|   Raspberry Pi   |  -->  Subscribe ->| LED com GPIO    |
 | (Envia ON/OFF)    |                   |    (Broker)      |                   | (Subscriber)     |
 +-------------------+                   +------------------+                   +-----------------+
-````
+
+```
+
 ## 2. Instalação mosquitto
+
 - sudo apt update
 - sudo apt install -y mosquitto mosquitto-clients
 - sudo systemctl enable mosquitto
 - sudo systemctl start mosquitto
 
 ## 3. Instalação MQTT Explorer
+
 - Instalamos um software chamado MQTT explorer para poder fazer o teste de comunição entre dois dispositivos, entre a rasp berry pi e um notebook
 - dentro do MQTT Explorer
 
@@ -36,18 +41,13 @@ Este projeto de Internet das Coisas (IoT) demonstra a comunicação entre dois d
 ### 4. Bibliotecas
 
 ```cpp
-cpp
-CopiarEditar
 #include <WiFi.h>
 #include <PubSubClient.h>
-
 ```
 
 ### 5. Configuração da Rede e Broker MQTT
 
 ```cpp
-cpp
-CopiarEditar
 const char* ssid = "iot"; // Nome da rede Wi-Fi
 const char* password = "iotsenai502"; // Senha da rede Wi-Fi
 const char* mqttServer = "IP_DO_RASPBERRY"; // Endereço IP do broker
@@ -58,8 +58,6 @@ const int mqttPort = 1883; // Porta padrão do MQTT
 ### 6. Configuração do LED
 
 ```cpp
-cpp
-CopiarEditar
 const int ledPin = 26; // Pino onde está conectado o LED
 
 ```
@@ -180,8 +178,6 @@ Mensagens exibidas:
 2. Use um cliente MQTT (ex: MQTT Explorer ou `mosquitto_pub`) para publicar no tópico:
     
     ```bash
-    bash
-    CopiarEditar
     mosquitto_pub -h IP_DO_RASPBERRY -t led -m "on"
     mosquitto_pub -h IP_DO_RASPBERRY -t led -m "off"
     
@@ -193,8 +189,6 @@ Mensagens exibidas:
 ## 📋 Exemplo de Configuração do Mosquitto no Raspberry Pi
 
 ```bash
-bash
-CopiarEditar
 sudo apt update
 sudo apt install mosquitto mosquitto-clients
 sudo systemctl enable mosquitto
